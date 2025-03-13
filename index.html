@@ -3,36 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guneal - Freelance Services</title>
+    <title>Guneal - Professional Freelance Artist</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #1a1a1a; /* Dark grey background */
+            color: #ffffff; /* White text for dark mode */
         }
         nav {
-            background-color: #333;
+            background-color: #333333; /* Darker grey navbar */
             padding: 10px;
             text-align: center;
+            border-bottom: 2px solid #00cc00; /* Green divider */
         }
         nav a {
-            color: white;
+            color: #ffffff; /* White links */
             margin: 0 15px;
             text-decoration: none;
+            font-weight: bold;
         }
         nav a:hover {
-            color: #ddd;
+            color: #00cc00; /* Green hover effect */
         }
         .section {
             margin: 20px 0;
             padding: 20px;
-            background-color: white;
+            background-color: #2a2a2a; /* Slightly lighter dark grey for sections */
+            border-left: 5px solid #00cc00; /* Green divider on left */
             border-radius: 5px;
+            color: #ffffff; /* White text inside sections */
         }
         h1, h2 {
-            color: #333;
+            color: #00cc00; /* Green headings */
+        }
+        .policy {
+            font-size: 0.9em;
+            color: #cccccc; /* Light grey for policy text */
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -41,22 +50,39 @@
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
+        <a href="#policies">Policies</a> <!-- New section for policies -->
     </nav>
 
     <div id="home" class="section">
         <h1>I am Guneal</h1>
-        <p>I am a generalist artist. I accept clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All is personally funded in order to create my main project, Cursed Guns Inc.</p>
+        <p>I am a professional generalist artist accepting clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All work supports my passion project, <a href="https://cursedgunsinc.com" style="color: #00cc00;">Cursed Guns Inc.</a></p>
     </div>
 
     <div id="services" class="section">
         <h2>Services</h2>
-        <p>The services I accept freelance work for is logo design.</p>
+        <p>I offer freelance work in logo design, tailored to your creative needs.</p>
     </div>
 
     <div id="contact" class="section">
         <h2>Contact Me</h2>
-        <p>Email: cursedguneal@gmail.com</p>
-        <p>The most effective way to reach me is on my X account. @CursedGuneal</p>
+        <p>Email: <a href="mailto:cursedguneal@gmail.com" style="color: #00cc00;">cursedguneal@gmail.com</a></p>
+        <p>The most effective way to reach me is on my <a href="https://x.com/CursedGuneal" style="color: #00cc00;">X account @CursedGuneal</a>.</p>
+    </div>
+
+    <div id="policies" class="section">
+        <h2>Policies</h2>
+        <div class="policy">
+            <h3>Refund and Dispute Policy</h3>
+            <p>Refunds are considered on a case-by-case basis. If a dispute arises, please contact me within 7 days of delivery with evidence. We’ll work to resolve it amicably, but no refunds are guaranteed after 14 days.</p>
+        </div>
+        <div class="policy">
+            <h3>Cancellation Policy</h3>
+            <p>Projects can be cancelled by either party with 48 hours’ notice before work begins. If I’ve started work, a cancellation fee of 50% of the agreed rate applies to cover time invested (e.g., those unpaid logos won’t happen again!). Full payment is due if work is complete.</p>
+        </div>
+        <div class="policy">
+            <h3>Terms</h3>
+            <p>All work is commissioned under a freelance agreement. Payment is due within 7 days of project completion via Stripe. Late payments incur a 5% fee per week.</p>
+        </div>
     </div>
 </body>
 </html>
