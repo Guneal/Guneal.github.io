@@ -4,39 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guneal - Professional Freelance Artist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', 'Arial', sans-serif; /* Updated font */
             margin: 0;
             padding: 20px;
-            background-color: #1a1a1a; /* Dark grey background */
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d); /* Gradient background */
             color: #ffffff; /* White text for dark mode */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .banner {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for glowy effect */
+        }
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        header {
+            background: linear-gradient(to bottom, #0f1419, #1a1a1a); /* Gradient header */
+            color: #e0e0e0;
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin-top: -30px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            color: #00cc00; /* Green color */
+            text-shadow: 0 0 10px rgba(0, 204, 102, 0.5); /* Glowy effect */
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
         nav {
-            background-color: #333333; /* Darker grey navbar */
-            padding: 10px;
+            background: #212529; /* Darker grey navbar */
+            padding: 1rem;
             text-align: center;
-            border-bottom: 2px solid #00cc00; /* Green divider */
+            border-radius: 20px;
+            margin: 1rem auto;
+            max-width: 600px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         nav a {
             color: #ffffff; /* White links */
             margin: 0 15px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
         nav a:hover {
             color: #00cc00; /* Green hover effect */
+            text-shadow: 0 0 5px rgba(0, 204, 102, 0.7); /* Glowy hover effect */
+        }
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto 6rem;
+            padding: 0 1rem;
         }
         .section {
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #2a2a2a; /* Slightly lighter dark grey for sections */
-            border-left: 5px solid #00cc00; /* Green divider on left */
-            border-radius: 5px;
+            background: #2a2a2a; /* Slightly lighter dark grey for sections */
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
             color: #ffffff; /* White text inside sections */
+        }
+        .section:hover {
+            transform: translateY(-5px); /* Pop-out effect */
+            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2); /* Glowy shadow on hover */
         }
         h1, h2, h3 {
             color: #00cc00; /* Green headings */
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid #00cc00; /* Green underline */
+            padding-bottom: 0.5rem;
+            border-radius: 0 0 10px 10px;
+            text-shadow: 0 0 5px rgba(0, 204, 102, 0.3); /* Subtle glow */
         }
         .policy {
             font-size: 0.9em;
@@ -58,74 +116,85 @@
     </style>
 </head>
 <body>
+    <div class="banner">
+        <img src="guneal-banner.png" alt="Guneal Banner">
+    </div>
+
+    <header>
+        <h1>I am Guneal</h1>
+        <p>Professional Freelance Artist</p>
+    </header>
+
     <nav>
         <a href="#home">Home</a>
-        <a href="#pricing">Pricing</a> <!-- New link -->
+        <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
         <a href="#policies">Policies</a>
     </nav>
 
-    <div id="home" class="section">
-        <h1>I am Guneal</h1>
-        <p>I am a professional generalist artist accepting clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All work supports my passion project, Cursed Guns Inc.</p>
-    </div>
+    <div class="container">
+        <section id="home">
+            <h2>Welcome to My Studio</h2>
+            <p>I am a professional generalist artist accepting clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All work supports my passion project, Cursed Guns Inc.</p>
+        </section>
 
-    <div id="pricing" class="section">
-        <h2>Pricing</h2>
-        <div class="pricing-item">
-            <h3>Logo Design</h3>
-            <p>Starting at $300 for a basic logo design with focused revisions till client satisfaction.</p>
-            <p>Complex designs or branding packages: Custom quote based on project scope.</p>
-            <!-- Placeholder for future video and gallery -->
-            <div class="video-placeholder">
-                <p>[Video showcasing logo design work to be embedded here soon]</p>
+        <section id="pricing">
+            <h2>Pricing</h2>
+            <div class="pricing-item">
+                <h3>Logo Design</h3>
+                <p>Starting at $300 for a basic logo design with focused revisions till client satisfaction.</p>
+                <p>Complex designs or branding packages: Custom quote based on project scope.</p>
+                <!-- Placeholder for future video and gallery -->
+                <div class="video-placeholder">
+                    <p>[Video showcasing logo design work to be embedded here soon]</p>
+                </div>
+                <div class="gallery-placeholder">
+                    <p>[Gallery of logo designs to be added here soon]</p>
+                </div>
             </div>
-            <div class="gallery-placeholder">
-                <p>[Gallery of logo designs to be added here soon]</p>
+            <div class="notes-box">
+                <h3>Notes</h3>
+                <p>All pricing is subject to change based on project requirements.</p>
+                <p>A 25% deposit is required upon signing the freelance agreement, as outlined in the Policies section.</p>
+                <p>Contact the artist for a detailed quote tailored to your project.</p>
             </div>
-        </div>
-        <div class="notes-box">
-            <h3>Notes</h3>
-            <p>All pricing is subject to change based on project requirements.</p>
-            <p>A 25% deposit is required upon signing the freelance agreement, as outlined in the Policies section.</p>
-            <p>Contact the artist for a detailed quote tailored to your project.</p>
-        </div>
-    </div>
+        </section>
 
-    <div id="contact" class="section">
-        <h2>Contact Me</h2>
-        <p>Email: <a href="mailto:cursedguneal@gmail.com" style="color: #00cc00;">cursedguneal@gmail.com</a></p>
-        <p>The most effective way to reach me is on my <a href="https://x.com/CursedGuneal" style="color: #00cc00;">X account @CursedGuneal</a>.</p>
-    </div>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Email: <a href="mailto:cursedguneal@gmail.com" style="color: #00cc00;">cursedguneal@gmail.com</a></p>
+            <p>The most effective way to reach me is on my <a href="https://x.com/CursedGuneal" style="color: #00cc00;">X account @CursedGuneal</a>.</p>
+        </section>
 
-    <div id="policies" class="section">
-        <h2>Policies</h2>
-        <div class="policy">
-            <h3>Refunds</h3>
-            <p>Refunds are not available for digital products (e.g., logos, digital assets) once delivered and approved by the client.</p>
-            <p>The artist prioritizes revising and iterating on the deliverables to ensure client satisfaction before final approval.</p>
-            <p>Once the client approves the final deliverables, the project is considered complete. Changes requested after final approval will require a new agreement and additional fees.</p>
-        </div>
-        <div class="policy">
-            <h3>Cancellation Policy</h3>
-            <p>Either party may cancel the project with 48 hours’ written notice from the date of signing the freelance agreement.</p>
-            <p>If the client cancels within 48 hours of signing, the 25% deposit paid upon signing will be retained by the artist as compensation for time spent organizing, planning, and starting work, including any iterations or revisions provided. The client will not owe the remaining 75% of the total fee.</p>
-            <p>If the client cancels after 48 hours from the date of signing, an additional cancellation fee of 25% of the total agreed rate will apply, bringing the total amount retained by the artist to 50% of the total fee. This fee covers the artist’s time and effort invested in the project.</p>
-            <p>In the event of cancellation by the client (whether within or after 48 hours), the client will receive no deliverables and will have no rights to use any iterations, revisions, or work provided by the artist.</p>
-            <p>If the artist cancels at any time, the 25% deposit paid by the client will be refunded in full, and the client will owe no further payments.</p>
-        </div>
-        <div class="policy">
-            <h3>Payment Terms</h3>
-            <p>All work is commissioned under a freelance agreement.</p>
-            <p>A 25% deposit is due upon signing the freelance agreement, with the remaining 75% of the total fee due within 7 days of project completion via Stripe invoice.</p>
-            <p>Late payments will incur a 5% fee per week.</p>
-        </div>
-        <div class="policy">
-            <h3>Project Timeline</h3>
-            <p>Projects are typically completed within a few weeks but are not expected to exceed 42 days (6 weeks) from the start date of the project.</p>
-            <p>Project duration may vary depending on the scope of the project and the time taken by the client to provide feedback.</p>
-            <p>Longer projects, such as those requiring extensive revisions or larger deliverables, may take more time and will incur a larger total fee, to be determined based on the project scope.</p>
-        </div>
+        <section id="policies">
+            <h2>Policies</h2>
+            <div class="policy">
+                <h3>Refunds</h3>
+                <p>Refunds are not available for digital products (e.g., logos, digital assets) once delivered and approved by the client.</p>
+                <p>The artist prioritizes revising and iterating on the deliverables to ensure client satisfaction before final approval.</p>
+                <p>Once the client approves the final deliverables, the project is considered complete. Changes requested after final approval will require a new agreement and additional fees.</p>
+            </div>
+            <div class="policy">
+                <h3>Cancellation Policy</h3>
+                <p>Either party may cancel the project with 48 hours’ written notice from the date of signing the freelance agreement.</p>
+                <p>If the client cancels within 48 hours of signing, the 25% deposit paid upon signing will be retained by the artist as compensation for time spent organizing, planning, and starting work, including any iterations or revisions provided. The client will not owe the remaining 75% of the total fee.</p>
+                <p>If the client cancels after 48 hours from the date of signing, an additional cancellation fee of 25% of the total agreed rate will apply, bringing the total amount retained by the artist to 50% of the total fee. This fee covers the artist’s time and effort invested in the project.</p>
+                <p>In the event of cancellation by the client (whether within or after 48 hours), the client will receive no deliverables and will have no rights to use any iterations, revisions, or work provided by the artist.</p>
+                <p>If the artist cancels at any time, the 25% deposit paid by the client will be refunded in full, and the client will owe no further payments.</p>
+            </div>
+            <div class="policy">
+                <h3>Payment Terms</h3>
+                <p>All work is commissioned under a freelance agreement.</p>
+                <p>A 25% deposit is due upon signing the freelance agreement, with the remaining 75% of the total fee due within 7 days of project completion via Stripe invoice.</p>
+                <p>Late payments will incur a 5% fee per week.</p>
+            </div>
+            <div class="policy">
+                <h3>Project Timeline</h3>
+                <p>Projects are typically completed within a few weeks but are not expected to exceed 42 days (6 weeks) from the start date of the project.</p>
+                <p>Project duration may vary depending on the scope of the project and the time taken by the client to provide feedback.</p>
+                <p>Longer projects, such as those requiring extensive revisions or larger deliverables, may take more time and will incur a larger total fee, to be determined based on the project scope.</p>
+            </div>
+        </section>
     </div>
 </body>
 </html>
