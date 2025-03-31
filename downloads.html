@@ -32,12 +32,15 @@
         </section>
     </div>
 
-    <footer>
-        <div class="footer-links">
-            <h3>Helpful Links</h3>
-            <p><a href="terms.html">Terms of Service</a></p>
-        </div>
-        <p>© 2025 Guneal. All rights reserved. | <a href="terms.html">Terms of Service</a></p>
-    </footer>
+    <footer></footer>
+
+    <script>
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
 </body>
 </html>
