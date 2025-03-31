@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', 'Arial', sans-serif; /* Updated font */
+            font-family: 'Roboto', 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d); /* Gradient background */
-            color: #ffffff; /* White text for dark mode */
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -21,7 +21,7 @@
             overflow: hidden;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for glowy effect */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
         .banner img {
             width: 100%;
@@ -29,7 +29,7 @@
             object-fit: cover;
         }
         header {
-            background: linear-gradient(to bottom, #0f1419, #1a1a1a); /* Gradient header */
+            background: linear-gradient(to bottom, #0f1419, #1a1a1a);
             color: #e0e0e0;
             text-align: center;
             padding: 2rem 0;
@@ -41,15 +41,15 @@
         header h1 {
             margin: 0;
             font-size: 3rem;
-            color: #00cc00; /* Green color */
-            text-shadow: 0 0 10px rgba(0, 204, 102, 0.5); /* Glowy effect */
+            color: #00cc00;
+            text-shadow: 0 0 10px rgba(0, 204, 102, 0.5);
         }
         header p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
         nav {
-            background: #212529; /* Darker grey navbar */
+            background: #212529;
             padding: 1rem;
             text-align: center;
             border-radius: 20px;
@@ -58,15 +58,15 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         nav a {
-            color: #ffffff; /* White links */
+            color: #ffffff;
             margin: 0 15px;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
         nav a:hover {
-            color: #00cc00; /* Green hover effect */
-            text-shadow: 0 0 5px rgba(0, 204, 102, 0.7); /* Glowy hover effect */
+            color: #00cc00;
+            text-shadow: 0 0 5px rgba(0, 204, 102, 0.7);
         }
         .container {
             max-width: 1100px;
@@ -74,39 +74,52 @@
             padding: 0 1rem;
         }
         .section {
-            background: #2a2a2a; /* Slightly lighter dark grey for sections */
+            background: #2a2a2a;
             margin-bottom: 2rem;
             padding: 2.5rem;
-            border-radius: 20px; /* Rounded corners */
+            border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
-            color: #ffffff; /* White text inside sections */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            color: #ffffff;
+            border: 2px solid transparent; /* Add border for glow effect */
         }
         .section:hover {
-            transform: translateY(-5px); /* Pop-out effect */
-            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2); /* Glowy shadow on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.3); /* Stronger green glow */
+            border: 2px solid #00cc00; /* Green border glow on hover */
         }
         h1, h2, h3 {
-            color: #00cc00; /* Green headings */
+            color: #00cc00;
         }
         h2 {
             font-size: 1.8rem;
-            border-bottom: 3px solid #00cc00; /* Green underline */
+            border-bottom: 3px solid #00cc00;
             padding-bottom: 0.5rem;
             border-radius: 0 0 10px 10px;
-            text-shadow: 0 0 5px rgba(0, 204, 102, 0.3); /* Subtle glow */
+            text-shadow: 0 0 5px rgba(0, 204, 102, 0.3);
         }
         .policy {
             font-size: 0.9em;
-            color: #cccccc; /* Light grey for policy text */
+            color: #cccccc;
             margin-top: 10px;
         }
         .pricing-item {
             margin-bottom: 20px;
+            padding: 1rem;
+            background: #333333; /* Slightly darker background for pricing items */
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .pricing-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.3); /* Green glow on hover */
+            border: 2px solid #00cc00; /* Green border glow on hover */
         }
         .notes-box {
-            background-color: #1a3c1a; /* Dark green background for notes */
-            border: 2px solid #00cc00; /* Green border */
+            background-color: #1a3c1a;
+            border: 2px solid #00cc00;
             padding: 15px;
             border-radius: 5px;
             margin-top: 20px;
@@ -142,14 +155,39 @@
             <h2>Pricing</h2>
             <div class="pricing-item">
                 <h3>Logo Design</h3>
-                <p>Starting at $300 for a basic logo design with focused revisions till client satisfaction.</p>
+                <p>Starting at $300 for a basic logo design (includes 3 revisions).</p>
+                <p>Additional revisions after the included amount: $50 per revision.</p>
                 <p>Complex designs or branding packages: Custom quote based on project scope.</p>
                 <!-- Placeholder for future video and gallery -->
                 <div class="video-placeholder">
-                    <p>[Video showcasing logo design work to be embedded here soon]</p>
+                    <p>[Video showcasing logo design work to be embedded here]</p>
                 </div>
                 <div class="gallery-placeholder">
-                    <p>[Gallery of logo designs to be added here soon]</p>
+                    <p>[Gallery of logo designs to be added here]</p>
+                </div>
+            </div>
+            <div class="pricing-item">
+                <h3>Animated Character (3D) - Vtubers & More</h3>
+                <p>Starting at $[Amount] for a single 3D animated character (e.g., for Vtubers or other uses).</p>
+                <p>Rates vary based on complexity, rigging, and project scope—contact for a custom quote.</p>
+                <!-- Placeholder for future video and gallery -->
+                <div class="video-placeholder">
+                    <p>[Video showcasing 3D animated character work to be embedded here]</p>
+                </div>
+                <div class="gallery-placeholder">
+                    <p>[Gallery of 3D character designs to be added here]</p>
+                </div>
+            </div>
+            <div class="pricing-item">
+                <h3>Animation</h3>
+                <p>Starting at $[Amount] for a [duration] animation (e.g., 10 seconds).</p>
+                <p>Rates vary based on length, style, and project scope—contact for a custom quote.</p>
+                <!-- Placeholder for future video and gallery -->
+                <div class="video-placeholder">
+                    <p>[Video showcasing animation work to be embedded here]</p>
+                </div>
+                <div class="gallery-placeholder">
+                    <p>[Gallery of animation frames or stills to be added here]</p>
                 </div>
             </div>
             <div class="notes-box">
