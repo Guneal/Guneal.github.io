@@ -74,20 +74,17 @@
             padding: 0 1rem;
         }
         .section {
-            background: #2d2d2d; /* Match Deep Rock Labs background */
+            background: #2d2d2d;
             margin-bottom: 2rem;
             padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Match Deep Rock Labs shadow */
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, background 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
             color: #ffffff;
-            border: 2px solid transparent; /* Keep border glow for now */
         }
         .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2); /* Match Deep Rock Labs glow */
-            border: 2px solid #00cc00; /* Green border glow (optional) */
-            background: #333333; /* Slightly lighter background on hover */
+            transform: translateY(-5px) !important;
+            box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2) !important;
         }
         h1, h2, h3 {
             color: #00cc00;
@@ -110,7 +107,6 @@
             background: #333333;
             border-radius: 15px;
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
-            border: 2px solid transparent;
         }
         .notes-box {
             background-color: #1a3c1a;
@@ -141,12 +137,12 @@
     </nav>
 
     <div class="container">
-        <section id="home">
+        <section id="home" class="section">
             <h2>Welcome to My Studio</h2>
             <p>I am a generalist artist accepting clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All work supports my passion project, Cursed Guns Inc.</p>
         </section>
 
-        <section id="pricing">
+        <section id="pricing" class="section">
             <h2>Pricing</h2>
             <div class="pricing-item">
                 <h3>Logo Design</h3>
@@ -169,13 +165,13 @@
             </div>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="section">
             <h2>Contact Me</h2>
             <p>Email: <a href="mailto:cursedguneal@gmail.com" style="color: #00cc00;">cursedguneal@gmail.com</a></p>
             <p>The most effective way to reach me is on my <a href="https://x.com/CursedGuneal" style="color: #00cc00;">X account @CursedGuneal</a>.</p>
         </section>
 
-        <section id="policies">
+        <section id="policies" class="section">
             <h2>Policies</h2>
             <div class="policy">
                 <h3>Refunds</h3>
