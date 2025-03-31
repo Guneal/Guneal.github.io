@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
-    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    background: linear-gradient(135deg, #2a2a2a, #3d3d3d); /* New gradient */
     color: #ffffff;
     line-height: 1.6;
     overflow-x: hidden;
@@ -76,7 +76,8 @@ nav a:hover {
 }
 .section:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.2); /* Red glow instead of green */
+}
 }
 h1, h2, h3 {
     color: #00cc00;
