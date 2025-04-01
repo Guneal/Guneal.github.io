@@ -3,8 +3,13 @@ const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
 // Set canvas size
-canvas.width = 700; // Increased width to accommodate controls and timer
+canvas.width = 700; // Total width
 canvas.height = 800;
+
+// Define the playable area (same as before)
+const playAreaWidth = 600; // Keep the playable area 600px wide
+const leftBoundary = 50; // Fixed left boundary
+const rightBoundary = leftBoundary + playAreaWidth; // Fixed right boundary
 
 // Load the controls image
 const controlsImg = new Image();
@@ -12,7 +17,7 @@ controlsImg.src = '404-hell-controls.png';
 
 // Game variables
 const player = {
-    x: canvas.width / 2 - 10, // Center horizontally
+    x: leftBoundary + (playAreaWidth / 2) - 10, // Center within the playable area
     y: 100, // Higher on the screen (near the top)
     width: 20,
     height: 20,
@@ -21,7 +26,7 @@ const player = {
 };
 
 const obstacles = [];
-const laneWidth = (canvas.width - 100) / 5; // 5 lanes between boundaries (50px on each side)
+const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (600 / 5 = 120px)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
 let obstacleSpeed = 8; // Starting speed
@@ -66,7 +71,7 @@ restartButton.addEventListener('click', () => {
     animationFrame = 0;
     obstacles.length = 0;
     obstacleSpawnTimer = 0;
-    player.x = canvas.width / 2 - 10;
+    player.x = leftBoundary + (playAreaWidth / 2) - 10;
     player.y = 100;
     startTime = 0;
     elapsedTime = 0;
@@ -78,7 +83,7 @@ restartButton.addEventListener('click', () => {
 // Spawn obstacles
 function spawnObstacle() {
     const position = Math.floor(Math.random() * 5); // 0 to 4 for 5 lanes
-    const x = 50 + position * laneWidth; // Lane positions
+    const x = leftBoundary + position * laneWidth; // Lane positions within the playable area
     const speedVariation = obstacleSpeed * (0.9 + Math.random() * 0.2); // Speed varies between 90% and 110%
     obstacles.push({
         x: x,
@@ -118,8 +123,8 @@ function update() {
 
     // Draw the shaft (two vertical lines)
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(40, 0, 10, canvas.height); // Left wall
-    ctx.fillRect(canvas.width - 50, 0, 10, canvas.height); // Right wall
+    ctx.fillRect(leftBoundary - 10, 0, 10, canvas.height); // Left wall
+    ctx.fillRect(rightBoundary, 0, 10, canvas.height); // Right wall
 
     if (!gameStarted) {
         // Initial animation
@@ -127,8 +132,8 @@ function update() {
         ctx.font = '40px Roboto';
         ctx.fillStyle = '#ff0000';
         ctx.textAlign = 'center';
-        ctx.fillText('OH NO... YOU FELL', canvas.width / 2, canvas.height / 2 - 50);
-        ctx.fillText('INTO 404 HELL', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('OH NO... YOU FELL', leftBoundary + (playAreaWidth / 2), canvas.height / 2 - 50);
+        ctx.fillText('INTO 404 HELL', leftBoundary + (playAreaWidth / 2), canvas.height / 2);
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(player.x, player.y + (animationFrame * 2), player.width, player.height); // Player falls during animation
 
@@ -155,8 +160,8 @@ function update() {
         player.x += player.dx;
 
         // Keep player within bounds
-        if (player.x < 50) player.x = 50; // Left wall
-        if (player.x + player.width > canvas.width - 50) player.x = canvas.width - 50 - player.width; // Right wall
+        if (player.x < leftBoundary) player.x = leftBoundary; // Left wall
+        if (player.x + player.width > rightBoundary) player.x = rightBoundary - player.width; // Right wall
 
         // Spawn obstacles after initial delay
         if (obstacleSpawnTimer > 0) {
@@ -182,7 +187,7 @@ function update() {
 
         // Draw controls image on the canvas
         if (showControls && controlsImg.complete) {
-            ctx.drawImage(controlsImg, 0, 10, 150, 100); // Moved further left to x: 0
+            ctx.drawImage(controlsImg, leftBoundary - 160, 10, 150, 100); // Positioned in the extra space on the left
         }
 
         // Draw player
@@ -199,7 +204,7 @@ function update() {
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'left';
-        ctx.fillText(formatTime(elapsedTime), canvas.width - 80, 30); // Adjusted to be fully readable
+        ctx.fillText(formatTime(elapsedTime), rightBoundary + 10, 30); // Positioned in the extra space on the right
     } else {
         // Game over state
         ctx.fillStyle = '#ffffff';
@@ -208,12 +213,15 @@ function update() {
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height); // Freeze obstacles
         });
         if (showControls && controlsImg.complete) {
-            ctx.drawImage(controlsImg, 0, 10, 150, 100); // Keep controls visible
+            ctx.drawImage(controlsImg, leftBoundary - 160, 10, 150, 100); // Keep controls visible
         }
         ctx.font = '40px Roboto';
         ctx.fillStyle = '#ff0000';
         ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('GAME OVER', leftBoundary + (playAreaWidth / 2), canvas.height / 2);
+        ctx.font = '20px Roboto';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(`Time Survived: ${formatTime(elapsedTime)}`, leftBoundary + (playAreaWidth / 2), canvas.height / 2 + 40);
         restartButton.style.display = 'block'; // Show restart button
     }
 
