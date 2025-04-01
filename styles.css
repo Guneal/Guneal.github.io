@@ -1,9 +1,23 @@
+:root {
+    /* Theme variables */
+    --primary-font: 'Roboto', 'Arial', sans-serif;
+    --primary-color: #00cc00; /* Green for accents */
+    --text-color: #ffffff; /* Default text color */
+    --background-gradient: linear-gradient(135deg, #2a0000, #4a0000); /* Dark red gradient */
+    --secondary-background: #212529; /* Nav background */
+    --section-background: #2d2d2d; /* Section background */
+    --header-background: linear-gradient(to bottom, #0f1419, #1a1a1a);
+    --footer-background: #0f1419;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --glow-color: rgba(0, 204, 102, 0.5);
+}
+
 body {
-    font-family: 'Roboto', 'Arial', sans-serif;
+    font-family: var(--primary-font);
     margin: 0;
     padding: 20px;
-    background: linear-gradient(135deg, #2a0000, #4a0000); /* Dark red gradient */
-    color: #ffffff;
+    background: var(--background-gradient);
+    color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -13,7 +27,7 @@ body {
     overflow: hidden;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 .banner img {
     width: 100%;
@@ -21,20 +35,20 @@ body {
     object-fit: cover;
 }
 header {
-    background: linear-gradient(to bottom, #0f1419, #1a1a1a);
+    background: var(--header-background);
     color: #e0e0e0;
     text-align: center;
     padding: 2rem 0;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px var(--shadow-color);
     margin-top: -30px;
 }
 header h1 {
     margin: 0;
     font-size: 3rem;
-    color: #00cc00;
-    text-shadow: 0 0 10px rgba(0, 204, 102, 0.5);
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color);
 }
 header p {
     font-size: 1.2rem;
@@ -42,7 +56,7 @@ header p {
     margin: 0.5rem 0;
 }
 header a.deep-rock-link {
-    color: #00cc00;
+    color: var(--primary-color);
     text-decoration: none;
     transition: text-decoration 0.3s ease;
 }
@@ -50,28 +64,28 @@ header a.deep-rock-link:hover {
     text-decoration: underline;
 }
 nav {
-    background: #212529;
+    background: var(--secondary-background);
     padding: 1rem;
     text-align: center;
     border-radius: 20px;
     margin: 1rem auto;
     max-width: 600px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px var(--shadow-color);
 }
 nav a {
-    color: #ffffff;
+    color: var(--text-color);
     margin: 0 15px;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 nav a:hover {
-    color: #00cc00;
-    text-shadow: 0 0 5px rgba(0, 204, 102, 0.7);
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--glow-color);
 }
 nav a.active {
-    color: #00cc00;
-    text-shadow: 0 0 5px rgba(0, 204, 102, 0.7);
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--glow-color);
 }
 .container {
     max-width: 1100px;
@@ -80,27 +94,27 @@ nav a.active {
     text-align: center; /* Center the p and game */
 }
 .section {
-    background: #2d2d2d;
+    background: var(--section-background);
     margin-bottom: 2rem;
     padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 20px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: #ffffff;
+    color: var(--text-color);
 }
 .section:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2);
 }
 h1, h2, h3 {
-    color: #00cc00;
+    color: var(--primary-color);
 }
 h2 {
     font-size: 1.8rem;
-    border-bottom: 3px solid #00cc00;
+    border-bottom: 3px solid var(--primary-color);
     padding-bottom: 0.5rem;
     border-radius: 0 0 10px 10px;
-    text-shadow: 0 0 5px rgba(0, 204, 102, 0.3);
+    text-shadow: 0 0 5px var(--glow-color);
 }
 .policy {
     font-size: 0.9em;
@@ -110,7 +124,7 @@ h2 {
 .policy h3 {
     font-size: 1.2rem; /* Slightly larger font size */
     font-weight: bold; /* Make it bold */
-    color: #00cc00; /* Green color to match the theme */
+    color: var(--primary-color); /* Green color to match the theme */
     margin-bottom: 0.5rem;
 }
 .service-item {
@@ -118,7 +132,7 @@ h2 {
     padding: 1rem;
     background: #333333;
     border-radius: 15px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 15px var(--shadow-color);
 }
 .pricing {
     margin-top: 1rem;
@@ -129,30 +143,30 @@ h2 {
 .pricing h4 {
     margin: 0 0 0.5rem 0;
     font-size: 1.1rem;
-    color: #00cc00;
+    color: var(--primary-color);
 }
 .notes-box {
     background-color: #1a3c1a;
-    border: 2px solid #00cc00;
+    border: 2px solid var(--primary-color);
     padding: 15px;
     border-radius: 5px;
     margin-top: 20px;
     font-size: 0.9em;
-    color: #ffffff;
+    color: var(--text-color);
 }
 footer {
     text-align: center;
     padding: 1.5rem;
-    background: #0f1419;
+    background: var(--footer-background);
     color: #e0e0e0;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 -4px 15px var(--shadow-color);
     width: 100%;
     box-sizing: border-box;
 }
 footer a {
-    color: #00cc00;
+    color: var(--primary-color);
     text-decoration: none;
 }
 footer a:hover {
@@ -182,7 +196,7 @@ footer a:hover {
     gap: 10px;
 }
 #game-canvas {
-    background: linear-gradient(135deg, #2a0000, #4a0000); /* Match page background */
+    background: var(--background-gradient); /* Match page background */
     border: none; /* Ensure no border */
 }
 #game-title {
@@ -192,8 +206,8 @@ footer a:hover {
 }
 #restart-button {
     padding: 10px 20px;
-    background: #00cc00;
-    color: #ffffff;
+    background: var(--primary-color);
+    color: var(--text-color);
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -201,5 +215,5 @@ footer a:hover {
     transition: background 0.3s ease;
 }
 #restart-button:hover {
-    background: #009900;
+    background: #009900; /* Slightly darker green */
 }
