@@ -18,6 +18,13 @@
         <div class="game-wrapper">
             <div class="game-canvas-wrapper">
                 <canvas id="game-canvas"></canvas>
+                <div id="leaderboard-container" style="display: none;">
+                    <div id="score-display"></div>
+                    <input id="name-input" type="text" maxlength="3" placeholder="Enter 3-letter name" style="margin-bottom: 10px;">
+                    <div id="leaderboard-scores" class="leaderboard-scores"></div>
+                </div>
+                <button id="reward-button" style="display: none; margin-top: 10px;">Claim Your Reward!</button>
+                <div id="reward-video" style="display: none; margin-top: 10px;"></div>
                 <button id="restart-button" style="display: none;">Restart</button>
             </div>
         </div>
