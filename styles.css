@@ -203,8 +203,9 @@ footer a:hover {
     align-items: center;
     gap: 10px;
 }
+/* Existing styles remain the same, adding this rule */
 #game-canvas {
-    background: var(--background-gradient); /* Match page background */
+    background: transparent; /* Override the gradient to make it transparent */
     border: none; /* Ensure no border */
 }
 #game-title {
