@@ -8,22 +8,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="banner">
-        <img src="guneal-banner.png" alt="Guneal Banner">
-    </div>
-
-    <header>
-        <h1>I am Guneal</h1>
-        <p>Freelance Artist</p>
-    </header>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact</a>
-        <a href="policies.html">Policies</a>
-        <a href="downloads.html">Downloads</a>
-    </nav>
+    <div id="banner"></div>
+    <div id="header"></div>
+    <div id="nav"></div>
 
     <div class="container">
         <section id="terms" class="section">
@@ -75,15 +62,8 @@
         </section>
     </div>
 
-    <footer></footer>
+    <footer id="footer"></footer>
 
-    <script>
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.querySelector('footer').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading footer:', error));
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
