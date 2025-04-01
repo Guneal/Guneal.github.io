@@ -155,7 +155,7 @@ function checkCollisions() {
 
 // Game loop
 function update() {
-    // Clear the canvas
+    // Clear the canvas without filling a background (transparency)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw the shaft (two vertical lines)
@@ -163,6 +163,7 @@ function update() {
     ctx.fillRect(leftBoundary - 10, 0, 10, canvas.height); // Left wall
     ctx.fillRect(rightBoundary, 0, 10, canvas.height); // Right wall
 
+    // Rest of the update function remains the same
     if (!gameStarted) {
         // Initial animation
         animationFrame++;
@@ -194,8 +195,8 @@ function update() {
         obstacleSpeed3Wide = 1 + timeFactor * 0.5 + additionalTimeFactor * 0.25; // Speed: 1 to 1.5 by 3 minutes, then up to 1.75
 
         const spawnChance1Wide = 0.04 + timeFactor * 0.16; // Spawn chance for 1wide: 0.04 to 0.2 by 3 minutes
-        const spawnChance2Wide = (0.02 + timeFactor * 0.08) * (elapsedTime >= 25 ? 1 : 0); // Spawn chance for 2wide: 0.02 to 0.1, starts at 25s
-        const spawnChance3Wide = (0.01 + timeFactor * 0.04) * (elapsedTime >= 40 ? 1 : 0); // Spawn chance for 3wide: 0.01 to 0.05, starts at 40s
+        const spawnChance2Wide = (0.005 + timeFactor * 0.02) * (elapsedTime >= 25 ? 1 : 0); // Reduced to 25% of previous: 0.005 to 0.025
+        const spawnChance3Wide = (0.0025 + timeFactor * 0.01) * (elapsedTime >= 40 ? 1 : 0); // Half of 2wide: 0.0025 to 0.0125
 
         // Update player position (horizontal movement only)
         player.x += player.dx;
