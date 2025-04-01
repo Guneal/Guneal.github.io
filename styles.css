@@ -112,12 +112,23 @@ h2 {
     color: #00cc00; /* Green color to match the theme */
     margin-bottom: 0.5rem;
 }
-.pricing-item {
+.service-item {
     margin-bottom: 20px;
     padding: 1rem;
     background: #333333;
     border-radius: 15px;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+}
+.pricing {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+.pricing h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #00cc00;
 }
 .notes-box {
     background-color: #1a3c1a;
