@@ -7,9 +7,9 @@ canvas.width = 700; // Total width
 canvas.height = 800;
 
 // Define the playable area
-const playAreaWidth = 400; // Reduced from 500px to 400px
-const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 400) / 2 = 150
-const rightBoundary = leftBoundary + playAreaWidth; // 150 + 400 = 550
+const playAreaWidth = 350; // Reduced from 400px to 350px
+const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 350) / 2 = 175
+const rightBoundary = leftBoundary + playAreaWidth; // 175 + 350 = 525
 
 // Load the controls image
 const controlsImg = new Image();
@@ -26,11 +26,15 @@ const player = {
 };
 
 const obstacles = [];
-const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (400 / 5 = 80px)
+const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (350 / 5 = 70px)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
-let obstacleSpeed = 8; // Starting speed
-let obstacleSpawnTimer = 0;
+let obstacleSpeed1Wide = 8; // Starting speed for 1wide (red)
+let obstacleSpeed2Wide = 4; // Starting speed for 2wide (orange), 50% of 1wide
+let obstacleSpeed3Wide = 1; // Starting speed for 3wide (purple), 25% of 2wide
+let obstacleSpawnTimer1Wide = 0;
+let obstacleSpawnTimer2Wide = 0;
+let obstacleSpawnTimer3Wide = 0;
 const initialDelay = 3 * 60; // 3 seconds at 60 FPS
 let gameStarted = false;
 let gameOver = false;
@@ -70,27 +74,60 @@ restartButton.addEventListener('click', () => {
     gameOver = false;
     animationFrame = 0;
     obstacles.length = 0;
-    obstacleSpawnTimer = 0;
+    obstacleSpawnTimer1Wide = 0;
+    obstacleSpawnTimer2Wide = 0;
+    obstacleSpawnTimer3Wide = 0;
     player.x = leftBoundary + (playAreaWidth / 2) - 10;
     player.y = 100;
     startTime = 0;
     elapsedTime = 0;
     showControls = false;
-    obstacleSpeed = 8; // Reset speed
+    obstacleSpeed1Wide = 8; // Reset speed
+    obstacleSpeed2Wide = 4;
+    obstacleSpeed3Wide = 1;
     restartButton.style.display = 'none';
 });
 
 // Spawn obstacles
-function spawnObstacle() {
+function spawn1Wide() {
     const position = Math.floor(Math.random() * 5); // 0 to 4 for 5 lanes
     const x = leftBoundary + position * laneWidth; // Lane positions within the playable area
-    const speedVariation = obstacleSpeed * (0.9 + Math.random() * 0.2); // Speed varies between 90% and 110%
+    const speedVariation = obstacleSpeed1Wide * (0.9 + Math.random() * 0.2); // Speed varies between 90% and 110%
     obstacles.push({
         x: x,
         y: canvas.height, // Start at the bottom
         width: obstacleWidth,
         height: obstacleHeight,
-        speed: speedVariation // Individual speed for this obstacle
+        speed: speedVariation,
+        type: '1wide' // Red obstacle
+    });
+}
+
+function spawn2Wide() {
+    const position = Math.floor(Math.random() * 4); // 0 to 3 for 4 possible positions (lanes 0-1, 1-2, 2-3, 3-4)
+    const x = leftBoundary + position * laneWidth; // Lane positions within the playable area
+    const speedVariation = obstacleSpeed2Wide * (0.9 + Math.random() * 0.2); // Speed varies between 90% and 110%
+    obstacles.push({
+        x: x,
+        y: canvas.height, // Start at the bottom
+        width: obstacleWidth * 2 + 10, // 2 lanes wide (including the gap)
+        height: obstacleHeight,
+        speed: speedVariation,
+        type: '2wide' // Orange obstacle
+    });
+}
+
+function spawn3Wide() {
+    const position = Math.floor(Math.random() * 3); // 0 to 2 for 3 possible positions (lanes 0-2, 1-3, 2-4)
+    const x = leftBoundary + position * laneWidth; // Lane positions within the playable area
+    const speedVariation = obstacleSpeed3Wide * (0.9 + Math.random() * 0.2); // Speed varies between 90% and 110%
+    obstacles.push({
+        x: x,
+        y: canvas.height, // Start at the bottom
+        width: obstacleWidth * 3 + 20, // 3 lanes wide (including the gaps)
+        height: obstacleHeight,
+        speed: speedVariation,
+        type: '3wide' // Purple obstacle
     });
 }
 
@@ -141,7 +178,7 @@ function update() {
             gameStarted = true;
             player.y = 100; // Reset player position higher on the screen
             showControls = true; // Show controls on the canvas
-            obstacleSpawnTimer = initialDelay; // Start the 3-second delay
+            obstacleSpawnTimer1Wide = initialDelay; // Start the 3-second delay
             startTime = Date.now(); // Start the timer
         }
     } else if (!gameOver) {
@@ -152,9 +189,13 @@ function update() {
         const rampUpTime = 3 * 60; // 3 minutes in seconds
         const timeFactor = Math.min(elapsedTime / rampUpTime, 1); // 0 to 1 over 3 minutes
         const additionalTimeFactor = elapsedTime > rampUpTime ? (elapsedTime - rampUpTime) / (2 * 60) : 0; // Slight increase after 3 minutes
-        obstacleSpeed = 8 + timeFactor * 4 + additionalTimeFactor * 2; // Speed: 8 to 12 by 3 minutes, then up to 14
+        obstacleSpeed1Wide = 8 + timeFactor * 4 + additionalTimeFactor * 2; // Speed: 8 to 12 by 3 minutes, then up to 14
+        obstacleSpeed2Wide = 4 + timeFactor * 2 + additionalTimeFactor * 1; // Speed: 4 to 6 by 3 minutes, then up to 7
+        obstacleSpeed3Wide = 1 + timeFactor * 0.5 + additionalTimeFactor * 0.25; // Speed: 1 to 1.5 by 3 minutes, then up to 1.75
 
-        const spawnChance = 0.04 + timeFactor * 0.16; // Spawn chance: 0.04 to 0.2 by 3 minutes
+        const spawnChance1Wide = 0.04 + timeFactor * 0.16; // Spawn chance for 1wide: 0.04 to 0.2 by 3 minutes
+        const spawnChance2Wide = (0.02 + timeFactor * 0.08) * (elapsedTime >= 25 ? 1 : 0); // Spawn chance for 2wide: 0.02 to 0.1, starts at 25s
+        const spawnChance3Wide = (0.01 + timeFactor * 0.04) * (elapsedTime >= 40 ? 1 : 0); // Spawn chance for 3wide: 0.01 to 0.05, starts at 40s
 
         // Update player position (horizontal movement only)
         player.x += player.dx;
@@ -163,13 +204,33 @@ function update() {
         if (player.x < leftBoundary) player.x = leftBoundary; // Left wall
         if (player.x + player.width > rightBoundary) player.x = rightBoundary - player.width; // Right wall
 
-        // Spawn obstacles after initial delay
-        if (obstacleSpawnTimer > 0) {
-            obstacleSpawnTimer--;
+        // Spawn 1wide obstacles after initial delay
+        if (obstacleSpawnTimer1Wide > 0) {
+            obstacleSpawnTimer1Wide--;
         } else {
-            if (Math.random() < spawnChance) { // Dynamic spawn rate
-                spawnObstacle();
-                obstacleSpawnTimer = 30; // 0.5 seconds delay
+            if (Math.random() < spawnChance1Wide) { // Dynamic spawn rate
+                spawn1Wide();
+                obstacleSpawnTimer1Wide = 30; // 0.5 seconds delay
+            }
+        }
+
+        // Spawn 2wide obstacles after 25 seconds
+        if (obstacleSpawnTimer2Wide > 0) {
+            obstacleSpawnTimer2Wide--;
+        } else {
+            if (Math.random() < spawnChance2Wide) { // Dynamic spawn rate
+                spawn2Wide();
+                obstacleSpawnTimer2Wide = 30; // 0.5 seconds delay
+            }
+        }
+
+        // Spawn 3wide obstacles after 40 seconds
+        if (obstacleSpawnTimer3Wide > 0) {
+            obstacleSpawnTimer3Wide--;
+        } else {
+            if (Math.random() < spawnChance3Wide) { // Dynamic spawn rate
+                spawn3Wide();
+                obstacleSpawnTimer3Wide = 30; // 0.5 seconds delay
             }
         }
 
@@ -195,8 +256,14 @@ function update() {
         ctx.fillRect(player.x, player.y, player.width, player.height);
 
         // Draw obstacles
-        ctx.fillStyle = '#ff0000';
         obstacles.forEach(obs => {
+            if (obs.type === '1wide') {
+                ctx.fillStyle = '#ff0000'; // Red for 1wide
+            } else if (obs.type === '2wide') {
+                ctx.fillStyle = '#FFA500'; // Orange for 2wide
+            } else if (obs.type === '3wide') {
+                ctx.fillStyle = '#800080'; // Purple for 3wide
+            }
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         });
 
@@ -204,13 +271,20 @@ function update() {
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'left';
-        ctx.fillText(`Time: ${formatTime(elapsedTime)}`, rightBoundary + 10, 30); // Positioned in the extra space on the right
+        ctx.fillText(`Time: ${formatTime(elapsedTime)}`, rightBoundary + 35, 30); // Adjusted for even spacing
     } else {
         // Game over state
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(player.x, player.y, player.width, player.height); // Freeze player
         obstacles.forEach(obs => {
-            ctx.fillRect(obs.x, obs.y, obs.width, obs.height); // Freeze obstacles
+            if (obs.type === '1wide') {
+                ctx.fillStyle = '#ff0000'; // Red for 1wide
+            } else if (obs.type === '2wide') {
+                ctx.fillStyle = '#FFA500'; // Orange for 2wide
+            } else if (obs.type === '3wide') {
+                ctx.fillStyle = '#800080'; // Purple for 3wide
+            }
+            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         });
         if (showControls && controlsImg.complete) {
             ctx.drawImage(controlsImg, leftBoundary - 160, 10, 150, 100); // Keep controls visible
