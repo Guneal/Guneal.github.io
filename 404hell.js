@@ -66,6 +66,7 @@ const leaderboardScores = document.getElementById('leaderboard-scores');
 // Reward elements
 const rewardButton = document.getElementById('reward-button');
 const rewardVideo = document.getElementById('reward-video');
+let player; // YouTube player instance
 
 // Restart button
 const restartButton = document.getElementById('restart-button');
@@ -155,13 +156,37 @@ confirmNameButton.addEventListener('click', () => {
     }
 });
 
-// Reward video button
+// YouTube IFrame API setup
+function onYouTubeIframeAPIReady() {
+    // This function will be called when the API is ready
+}
+
 rewardButton.addEventListener('click', () => {
     rewardButton.style.display = 'none';
     rewardVideo.style.display = 'block';
+    const videoId = '2WXz7dw8yms'; // Extracted from the new URL
     rewardVideo.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div id="youtube-player"></div>
     `;
+    player = new YT.Player('youtube-player', {
+        height: '225',
+        width: '400',
+        videoId: videoId,
+        playerVars: {
+            'autoplay': 1,
+            'controls': 1,
+            'rel': 0,
+            'showinfo': 0
+        },
+        events: {
+            'onStateChange': (event) => {
+                if (event.data === YT.PlayerState.ENDED) {
+                    // Redirect to homepage when video ends
+                    window.location.href = 'index.html';
+                }
+            }
+        }
+    });
 });
 
 // Restart game
