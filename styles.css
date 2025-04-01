@@ -182,8 +182,8 @@ footer a:hover {
     gap: 10px;
 }
 #game-canvas {
-    background: transparent; /* Blend with page background */
-    border: none; /* Remove the green border */
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d); /* Match page background */
+    border: none; /* Ensure no border */
 }
 #restart-button {
     padding: 10px 20px;
