@@ -244,7 +244,7 @@ footer a:hover {
 
 .instruction-text {
     font-family: 'ShogunImpact', 'Creepster', cursive; /* Use ShogunImpact, fallback to Creepster */
-    font-size: 2rem; /* Larger font size as previously set */
+    font-size: 4rem; /* Larger font size as previously set */
     color: #ff0000; /* Red to match the hell theme */
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
