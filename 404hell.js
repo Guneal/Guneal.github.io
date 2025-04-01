@@ -3,13 +3,13 @@ const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
 // Set canvas size
-canvas.width = 400;
-canvas.height = 600;
+canvas.width = 600;
+canvas.height = 800;
 
 // Game variables
 const player = {
     x: canvas.width / 2 - 10, // Center horizontally
-    y: canvas.height / 2 - 10, // Fixed vertical position (center of screen)
+    y: 100, // Higher on the screen (near the top)
     width: 20,
     height: 20,
     speed: 5,
@@ -19,18 +19,23 @@ const player = {
 const obstacles = [];
 const obstacleWidth = 10;
 const obstacleHeight = 10;
-const obstacleSpeed = 2; // Speed at which obstacles move upward
+const obstacleSpeed = 4; // Increased speed for more challenge
 let obstacleSpawnTimer = 0;
 const initialDelay = 5 * 60; // 5 seconds at 60 FPS
 let gameStarted = false;
 let gameOver = false;
 
+// Timer variables
+let startTime = 0;
+let elapsedTime = 0;
+
 // Animation variables
 let animationFrame = 0;
 const animationDuration = 3 * 60; // 3 seconds at 60 FPS
 
-// Controls image
+// Controls image and restart button
 const controlsImg = document.getElementById('controls');
+const restartButton = document.getElementById('restart-button');
 
 // Player movement
 document.addEventListener('keydown', (e) => {
@@ -45,6 +50,21 @@ document.addEventListener('keyup', (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         player.dx = 0;
     }
+});
+
+// Restart game
+restartButton.addEventListener('click', () => {
+    gameStarted = false;
+    gameOver = false;
+    animationFrame = 0;
+    obstacles.length = 0;
+    obstacleSpawnTimer = 0;
+    player.x = canvas.width / 2 - 10;
+    player.y = 100;
+    startTime = 0;
+    elapsedTime = 0;
+    controlsImg.style.display = 'none';
+    restartButton.style.display = 'none';
 });
 
 // Spawn obstacles
@@ -64,6 +84,13 @@ function spawnObstacle() {
         width: obstacleWidth,
         height: obstacleHeight
     });
+}
+
+// Format time as MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `Time: ${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 // Check for collisions
@@ -94,7 +121,7 @@ function update() {
     if (!gameStarted) {
         // Initial animation
         animationFrame++;
-        ctx.font = '30px Roboto';
+        ctx.font = '40px Roboto';
         ctx.fillStyle = '#ff0000';
         ctx.textAlign = 'center';
         ctx.fillText('OH NO... YOU FELL', canvas.width / 2, canvas.height / 2 - 50);
@@ -104,11 +131,15 @@ function update() {
 
         if (animationFrame >= animationDuration) {
             gameStarted = true;
-            player.y = canvas.height / 2 - 10; // Reset player position
+            player.y = 100; // Reset player position higher on the screen
             controlsImg.style.display = 'block'; // Show controls
             obstacleSpawnTimer = initialDelay; // Start the 5-second delay
+            startTime = Date.now(); // Start the timer
         }
     } else if (!gameOver) {
+        // Update timer
+        elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
+
         // Update player position (horizontal movement only)
         player.x += player.dx;
 
@@ -129,7 +160,7 @@ function update() {
         // Update obstacles
         for (let i = obstacles.length - 1; i >= 0; i--) {
             const obs = obstacles[i];
-            obs.y -= obstacleSpeed; // Move upward
+            obs.y -= obstacleSpeed; // Move upward faster
             if (obs.y + obs.height < 0) {
                 obstacles.splice(i, 1); // Remove obstacles that go off-screen
             }
@@ -147,6 +178,12 @@ function update() {
         obstacles.forEach(obs => {
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         });
+
+        // Draw timer
+        ctx.font = '20px Roboto';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'left';
+        ctx.fillText(formatTime(elapsedTime), canvas.width - 40, 50); // Right of the right border
     } else {
         // Game over state
         ctx.fillStyle = '#ffffff';
@@ -154,13 +191,11 @@ function update() {
         obstacles.forEach(obs => {
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height); // Freeze obstacles
         });
-        ctx.font = '30px Roboto';
+        ctx.font = '40px Roboto';
         ctx.fillStyle = '#ff0000';
         ctx.textAlign = 'center';
         ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '20px Roboto';
-        ctx.fillText('Refresh to try again', canvas.width / 2, canvas.height / 2 + 40);
+        restartButton.style.display = 'block'; // Show restart button
     }
 
     // Request next frame
