@@ -7,7 +7,7 @@ canvas.width = 700; // Total width
 canvas.height = 800;
 
 // Define the playable area
-const playAreaWidth = 350; // Reduced from 400px to 350px
+const playAreaWidth = 350; // Playable area width
 const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 350) / 2 = 175
 const rightBoundary = leftBoundary + playAreaWidth; // 175 + 350 = 525
 
@@ -29,15 +29,16 @@ const obstacles = [];
 const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (350 / 5 = 70px)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
-let obstacleSpeed1Wide = 8; // Starting speed for 1wide (red)
-let obstacleSpeed2Wide = 4; // Starting speed for 2wide (orange), 50% of 1wide
-let obstacleSpeed3Wide = 1; // Starting speed for 3wide (purple), 25% of 2wide
+let obstacleSpeed1Wide = 5.33; // Reduced by 33% from 8
+let obstacleSpeed2Wide = 2; // Reduced by 50% from 4
+let obstacleSpeed3Wide = 1; // Half of 2wide, unchanged
 let obstacleSpawnTimer1Wide = 0;
 let obstacleSpawnTimer2Wide = 0;
 let obstacleSpawnTimer3Wide = 0;
 const initialDelay = 3 * 60; // 3 seconds at 60 FPS
 let gameStarted = false;
 let gameOver = false;
+let scoreSubmitted = false;
 
 // Timer variables
 let startTime = 0;
@@ -49,6 +50,16 @@ const animationDuration = 3 * 60; // 3 seconds at 60 FPS
 
 // Controls image visibility
 let showControls = false;
+
+// Leaderboard elements
+const leaderboardContainer = document.getElementById('leaderboard-container');
+const scoreDisplay = document.getElementById('score-display');
+const nameInput = document.getElementById('name-input');
+const leaderboardScores = document.getElementById('leaderboard-scores');
+
+// Reward elements
+const rewardButton = document.getElementById('reward-button');
+const rewardVideo = document.getElementById('reward-video');
 
 // Restart button
 const restartButton = document.getElementById('restart-button');
@@ -68,10 +79,60 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
+// Load leaderboard from localStorage
+function loadLeaderboard() {
+    const leaderboard = localStorage.getItem('404hell-leaderboard');
+    return leaderboard ? JSON.parse(leaderboard) : [];
+}
+
+// Save leaderboard to localStorage
+function saveLeaderboard(leaderboard) {
+    localStorage.setItem('404hell-leaderboard', JSON.stringify(leaderboard));
+}
+
+// Update leaderboard display
+function updateLeaderboardDisplay() {
+    const leaderboard = loadLeaderboard();
+    leaderboardScores.innerHTML = '';
+    leaderboard.forEach((entry, index) => {
+        const entryDiv = document.createElement('div');
+        entryDiv.innerHTML = `
+            <span class="rank">${index + 1}.</span>
+            <span class="name">${entry.name}</span>
+            <span class="time">${formatTime(entry.time)}</span>
+        `;
+        leaderboardScores.appendChild(entryDiv);
+    });
+}
+
+// Handle score submission
+nameInput.addEventListener('input', () => {
+    if (nameInput.value.length === 3 && !scoreSubmitted) {
+        const leaderboard = loadLeaderboard();
+        leaderboard.push({ name: nameInput.value.toUpperCase(), time: elapsedTime });
+        leaderboard.sort((a, b) => b.time - a.time); // Sort descending by time
+        if (leaderboard.length > 100) leaderboard.length = 100; // Keep top 100
+        saveLeaderboard(leaderboard);
+        updateLeaderboardDisplay();
+        nameInput.disabled = true;
+        scoreSubmitted = true;
+    }
+});
+
+// Reward video button
+rewardButton.addEventListener('click', () => {
+    rewardButton.style.display = 'none';
+    rewardVideo.style.display = 'block';
+    rewardVideo.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    `;
+});
+
 // Restart game
 restartButton.addEventListener('click', () => {
     gameStarted = false;
     gameOver = false;
+    scoreSubmitted = false;
     animationFrame = 0;
     obstacles.length = 0;
     obstacleSpawnTimer1Wide = 0;
@@ -82,10 +143,16 @@ restartButton.addEventListener('click', () => {
     startTime = 0;
     elapsedTime = 0;
     showControls = false;
-    obstacleSpeed1Wide = 8; // Reset speed
-    obstacleSpeed2Wide = 4;
+    obstacleSpeed1Wide = 5.33; // Reset speed
+    obstacleSpeed2Wide = 2;
     obstacleSpeed3Wide = 1;
     restartButton.style.display = 'none';
+    leaderboardContainer.style.display = 'none';
+    nameInput.disabled = false;
+    nameInput.value = '';
+    rewardButton.style.display = 'none';
+    rewardVideo.style.display = 'none';
+    rewardVideo.innerHTML = '';
 });
 
 // Spawn obstacles
@@ -163,7 +230,6 @@ function update() {
     ctx.fillRect(leftBoundary - 10, 0, 10, canvas.height); // Left wall
     ctx.fillRect(rightBoundary, 0, 10, canvas.height); // Right wall
 
-    // Rest of the update function remains the same
     if (!gameStarted) {
         // Initial animation
         animationFrame++;
@@ -190,13 +256,13 @@ function update() {
         const rampUpTime = 3 * 60; // 3 minutes in seconds
         const timeFactor = Math.min(elapsedTime / rampUpTime, 1); // 0 to 1 over 3 minutes
         const additionalTimeFactor = elapsedTime > rampUpTime ? (elapsedTime - rampUpTime) / (2 * 60) : 0; // Slight increase after 3 minutes
-        obstacleSpeed1Wide = 8 + timeFactor * 4 + additionalTimeFactor * 2; // Speed: 8 to 12 by 3 minutes, then up to 14
-        obstacleSpeed2Wide = 4 + timeFactor * 2 + additionalTimeFactor * 1; // Speed: 4 to 6 by 3 minutes, then up to 7
+        obstacleSpeed1Wide = 5.33 + timeFactor * 2.67 + additionalTimeFactor * 1.33; // Speed: 5.33 to 8 by 3 minutes, then up to 9.33
+        obstacleSpeed2Wide = 2 + timeFactor * 1 + additionalTimeFactor * 0.5; // Speed: 2 to 3 by 3 minutes, then up to 3.5
         obstacleSpeed3Wide = 1 + timeFactor * 0.5 + additionalTimeFactor * 0.25; // Speed: 1 to 1.5 by 3 minutes, then up to 1.75
 
         const spawnChance1Wide = 0.04 + timeFactor * 0.16; // Spawn chance for 1wide: 0.04 to 0.2 by 3 minutes
-        const spawnChance2Wide = (0.005 + timeFactor * 0.02) * (elapsedTime >= 25 ? 1 : 0); // Reduced to 25% of previous: 0.005 to 0.025
-        const spawnChance3Wide = (0.0025 + timeFactor * 0.01) * (elapsedTime >= 40 ? 1 : 0); // Half of 2wide: 0.0025 to 0.0125
+        const spawnChance2Wide = (0.005 + timeFactor * 0.02) * (elapsedTime >= 25 ? 1 : 0); // 0.005 to 0.025
+        const spawnChance3Wide = (0.0025 + timeFactor * 0.01) * (elapsedTime >= 40 ? 1 : 0); // 0.0025 to 0.0125
 
         // Update player position (horizontal movement only)
         player.x += player.dx;
@@ -297,6 +363,17 @@ function update() {
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
         ctx.fillText(`Time Survived: ${formatTime(elapsedTime)}`, leftBoundary + (playAreaWidth / 2), canvas.height / 2 + 40);
+
+        // Show leaderboard
+        leaderboardContainer.style.display = 'block';
+        scoreDisplay.textContent = `You Survived: ${formatTime(elapsedTime)}`;
+        updateLeaderboardDisplay();
+
+        // Show reward button if survived over 1 minute
+        if (elapsedTime >= 60) {
+            rewardButton.style.display = 'block';
+        }
+
         restartButton.style.display = 'block'; // Show restart button
     }
 
