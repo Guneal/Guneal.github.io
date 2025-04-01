@@ -232,7 +232,23 @@ footer a:hover {
     color: #ff0000; /* Red to match the hell theme */
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
-/* Existing styles remain the same, adding these rules */
+/* Existing styles remain the same, adding/updating these rules */
+
+/* Load custom font */
+@font-face {
+    font-family: 'ShogunImpact';
+    src: url('fonts/ShogunImpact.otf') format('opentype'); /* Use format('opentype') for .otf files */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.instruction-text {
+    font-family: 'ShogunImpact', 'Creepster', cursive; /* Use ShogunImpact, fallback to Creepster */
+    font-size: 2rem; /* Larger font size as previously set */
+    color: #ff0000; /* Red to match the hell theme */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
 .leaderboard-scores {
     max-height: 200px; /* Show about 10 scores at a time */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -273,37 +289,6 @@ footer a:hover {
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 
-#name-input {
-    background: #333333;
-    color: #ffffff;
-    border: 1px solid #ff0000;
-    border-radius: 5px;
-    padding: 5px;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-}
-
-#reward-button {
-    padding: 10px 20px;
-    background: #ff0000;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#reward-button:hover {
-    background: #cc0000; /* Slightly darker red */
-}
-
-#reward-video iframe {
-    width: 300px;
-    height: 169px; /* 16:9 aspect ratio */
-}
-/* Existing styles remain the same, adding these rules */
 #name-entry {
     text-align: center;
     margin-bottom: 10px;
@@ -333,6 +318,17 @@ footer a:hover {
     100% { opacity: 1; }
 }
 
+#name-input {
+    background: #333333;
+    color: #ffffff;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
 #confirm-name-button {
     padding: 5px 10px;
     background: #ff0000;
@@ -351,4 +347,24 @@ footer a:hover {
 
 #confirm-name-button:hover:not(:disabled) {
     background: #cc0000;
+}
+
+#reward-button {
+    padding: 10px 20px;
+    background: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#reward-button:hover {
+    background: #cc0000; /* Slightly darker red */
+}
+
+#reward-video iframe {
+    width: 400px; /* Larger window as previously set */
+    height: 225px; /* 16:9 aspect ratio */
 }
