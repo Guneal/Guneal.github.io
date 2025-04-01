@@ -6,6 +6,10 @@ const ctx = canvas.getContext('2d');
 canvas.width = 600;
 canvas.height = 800;
 
+// Load the controls image
+const controlsImg = new Image();
+controlsImg.src = '404-hell-controls.png';
+
 // Game variables
 const player = {
     x: canvas.width / 2 - 10, // Center horizontally
@@ -33,8 +37,10 @@ let elapsedTime = 0;
 let animationFrame = 0;
 const animationDuration = 3 * 60; // 3 seconds at 60 FPS
 
-// Controls image and restart button
-const controlsImg = document.getElementById('controls');
+// Controls image visibility
+let showControls = false;
+
+// Restart button
 const restartButton = document.getElementById('restart-button');
 
 // Player movement
@@ -63,7 +69,7 @@ restartButton.addEventListener('click', () => {
     player.y = 100;
     startTime = 0;
     elapsedTime = 0;
-    controlsImg.style.display = 'none';
+    showControls = false;
     restartButton.style.display = 'none';
 });
 
@@ -132,7 +138,7 @@ function update() {
         if (animationFrame >= animationDuration) {
             gameStarted = true;
             player.y = 100; // Reset player position higher on the screen
-            controlsImg.style.display = 'block'; // Show controls
+            showControls = true; // Show controls on the canvas
             obstacleSpawnTimer = initialDelay; // Start the 5-second delay
             startTime = Date.now(); // Start the timer
         }
@@ -169,6 +175,11 @@ function update() {
         // Check collisions
         checkCollisions();
 
+        // Draw controls image on the canvas
+        if (showControls && controlsImg.complete) {
+            ctx.drawImage(controlsImg, 10, 10, 150, 100); // Draw at x: 10, y: 10
+        }
+
         // Draw player
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(player.x, player.y, player.width, player.height);
@@ -182,8 +193,8 @@ function update() {
         // Draw timer
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'left';
-        ctx.fillText(formatTime(elapsedTime), canvas.width - 40, 50); // Right of the right border
+        ctx.textAlign = 'right';
+        ctx.fillText(formatTime(elapsedTime), canvas.width - 60, 30); // Adjusted position to be fully visible
     } else {
         // Game over state
         ctx.fillStyle = '#ffffff';
@@ -191,6 +202,9 @@ function update() {
         obstacles.forEach(obs => {
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height); // Freeze obstacles
         });
+        if (showControls && controlsImg.complete) {
+            ctx.drawImage(controlsImg, 10, 10, 150, 100); // Keep controls visible
+        }
         ctx.font = '40px Roboto';
         ctx.fillStyle = '#ff0000';
         ctx.textAlign = 'center';
