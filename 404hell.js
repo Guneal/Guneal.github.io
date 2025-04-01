@@ -6,10 +6,10 @@ const ctx = canvas.getContext('2d');
 canvas.width = 700; // Total width
 canvas.height = 800;
 
-// Define the playable area (same as before)
-const playAreaWidth = 600; // Keep the playable area 600px wide
-const leftBoundary = 50; // Fixed left boundary
-const rightBoundary = leftBoundary + playAreaWidth; // Fixed right boundary
+// Define the playable area
+const playAreaWidth = 500; // Reduced from 600px to 500px
+const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 500) / 2 = 100
+const rightBoundary = leftBoundary + playAreaWidth; // 100 + 500 = 600
 
 // Load the controls image
 const controlsImg = new Image();
@@ -26,7 +26,7 @@ const player = {
 };
 
 const obstacles = [];
-const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (600 / 5 = 120px)
+const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (500 / 5 = 100px)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
 let obstacleSpeed = 8; // Starting speed
@@ -98,7 +98,7 @@ function spawnObstacle() {
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `Time: ${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 // Check for collisions
@@ -204,7 +204,7 @@ function update() {
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'left';
-        ctx.fillText(formatTime(elapsedTime), rightBoundary + 10, 30); // Positioned in the extra space on the right
+        ctx.fillText(`Time: ${formatTime(elapsedTime)}`, rightBoundary + 10, 30); // Positioned in the extra space on the right
     } else {
         // Game over state
         ctx.fillStyle = '#ffffff';
