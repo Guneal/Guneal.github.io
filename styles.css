@@ -39,6 +39,15 @@ header h1 {
 header p {
     font-size: 1.2rem;
     opacity: 0.9;
+    margin: 0.5rem 0;
+}
+header a.deep-rock-link {
+    color: #00cc00;
+    text-decoration: none;
+    transition: text-decoration 0.3s ease;
+}
+header a.deep-rock-link:hover {
+    text-decoration: underline;
 }
 nav {
     background: #212529;
