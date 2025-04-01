@@ -31,10 +31,12 @@ const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
 let obstacleSpeed1Wide = 5.33; // Reduced by 33% from 8
 let obstacleSpeed2Wide = 2; // Reduced by 50% from 4
-let obstacleSpeed3Wide = 1; // Half of 2wide, unchanged
+let obstacleSpeed3Wide = 1; // Half of 2wide
 let obstacleSpawnTimer1Wide = 0;
 let obstacleSpawnTimer2Wide = 0;
 let obstacleSpawnTimer3Wide = 0;
+let lastSpawnTime2Wide = 0;
+let lastSpawnTime3Wide = 0;
 const initialDelay = 3 * 60; // 3 seconds at 60 FPS
 let gameStarted = false;
 let gameOver = false;
@@ -55,6 +57,8 @@ let showControls = false;
 const leaderboardContainer = document.getElementById('leaderboard-container');
 const scoreDisplay = document.getElementById('score-display');
 const nameInput = document.getElementById('name-input');
+const nameUnderscores = document.getElementById('name-underscores');
+const confirmNameButton = document.getElementById('confirm-name-button');
 const leaderboardScores = document.getElementById('leaderboard-scores');
 
 // Reward elements
@@ -105,8 +109,23 @@ function updateLeaderboardDisplay() {
     });
 }
 
-// Handle score submission
+// Handle name input and underscore display
 nameInput.addEventListener('input', () => {
+    const value = nameInput.value.toUpperCase();
+    const underscores = nameUnderscores.querySelectorAll('.underscore');
+    underscores.forEach((underscore, index) => {
+        underscore.textContent = index < value.length ? value[index] : '_';
+        if (index === value.length || (index === 2 && value.length === 3)) {
+            underscore.classList.add('active');
+        } else {
+            underscore.classList.remove('active');
+        }
+    });
+    confirmNameButton.disabled = value.length !== 3;
+});
+
+// Handle score submission
+confirmNameButton.addEventListener('click', () => {
     if (nameInput.value.length === 3 && !scoreSubmitted) {
         const leaderboard = loadLeaderboard();
         leaderboard.push({ name: nameInput.value.toUpperCase(), time: elapsedTime });
@@ -115,6 +134,7 @@ nameInput.addEventListener('input', () => {
         saveLeaderboard(leaderboard);
         updateLeaderboardDisplay();
         nameInput.disabled = true;
+        confirmNameButton.disabled = true;
         scoreSubmitted = true;
     }
 });
@@ -138,6 +158,8 @@ restartButton.addEventListener('click', () => {
     obstacleSpawnTimer1Wide = 0;
     obstacleSpawnTimer2Wide = 0;
     obstacleSpawnTimer3Wide = 0;
+    lastSpawnTime2Wide = 0;
+    lastSpawnTime3Wide = 0;
     player.x = leftBoundary + (playAreaWidth / 2) - 10;
     player.y = 100;
     startTime = 0;
@@ -150,6 +172,12 @@ restartButton.addEventListener('click', () => {
     leaderboardContainer.style.display = 'none';
     nameInput.disabled = false;
     nameInput.value = '';
+    confirmNameButton.disabled = true;
+    const underscores = nameUnderscores.querySelectorAll('.underscore');
+    underscores.forEach(underscore => {
+        underscore.textContent = '_';
+        underscore.classList.remove('active');
+    });
     rewardButton.style.display = 'none';
     rewardVideo.style.display = 'none';
     rewardVideo.innerHTML = '';
@@ -182,6 +210,7 @@ function spawn2Wide() {
         speed: speedVariation,
         type: '2wide' // Orange obstacle
     });
+    lastSpawnTime2Wide = Date.now();
 }
 
 function spawn3Wide() {
@@ -196,6 +225,7 @@ function spawn3Wide() {
         speed: speedVariation,
         type: '3wide' // Purple obstacle
     });
+    lastSpawnTime3Wide = Date.now();
 }
 
 // Format time as MM:SS
@@ -264,6 +294,16 @@ function update() {
         const spawnChance2Wide = (0.005 + timeFactor * 0.02) * (elapsedTime >= 25 ? 1 : 0); // 0.005 to 0.025
         const spawnChance3Wide = (0.0025 + timeFactor * 0.01) * (elapsedTime >= 40 ? 1 : 0); // 0.0025 to 0.0125
 
+        // Calculate max counts for 2wides and 3wides
+        const max2Wides = 4 + timeFactor * 2; // 4 to 6 by 3 minutes
+        const max3Wides = 2 + timeFactor * 1; // 2 to 3 by 3 minutes
+        const current2Wides = obstacles.filter(obs => obs.type === '2wide').length;
+        const current3Wides = obstacles.filter(obs => obs.type === '3wide').length;
+
+        // Calculate forced delay (in milliseconds)
+        const forcedDelay2Wide = 1000 - timeFactor * 500; // 1000ms to 500ms by 3 minutes
+        const forcedDelay3Wide = 1000 - timeFactor * 500; // 1000ms to 500ms by 3 minutes
+
         // Update player position (horizontal movement only)
         player.x += player.dx;
 
@@ -285,7 +325,11 @@ function update() {
         if (obstacleSpawnTimer2Wide > 0) {
             obstacleSpawnTimer2Wide--;
         } else {
-            if (Math.random() < spawnChance2Wide) { // Dynamic spawn rate
+            if (
+                Math.random() < spawnChance2Wide &&
+                current2Wides < max2Wides &&
+                (Date.now() - lastSpawnTime2Wide) >= forcedDelay2Wide
+            ) { // Dynamic spawn rate with max count and forced delay
                 spawn2Wide();
                 obstacleSpawnTimer2Wide = 30; // 0.5 seconds delay
             }
@@ -295,7 +339,11 @@ function update() {
         if (obstacleSpawnTimer3Wide > 0) {
             obstacleSpawnTimer3Wide--;
         } else {
-            if (Math.random() < spawnChance3Wide) { // Dynamic spawn rate
+            if (
+                Math.random() < spawnChance3Wide &&
+                current3Wides < max3Wides &&
+                (Date.now() - lastSpawnTime3Wide) >= forcedDelay3Wide
+            ) { // Dynamic spawn rate with max count and forced delay
                 spawn3Wide();
                 obstacleSpawnTimer3Wide = 30; // 0.5 seconds delay
             }
