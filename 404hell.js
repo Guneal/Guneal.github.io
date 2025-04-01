@@ -7,9 +7,9 @@ canvas.width = 700; // Total width
 canvas.height = 800;
 
 // Define the playable area
-const playAreaWidth = 500; // Reduced from 600px to 500px
-const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 500) / 2 = 100
-const rightBoundary = leftBoundary + playAreaWidth; // 100 + 500 = 600
+const playAreaWidth = 400; // Reduced from 500px to 400px
+const leftBoundary = (canvas.width - playAreaWidth) / 2; // Center the playable area: (700 - 400) / 2 = 150
+const rightBoundary = leftBoundary + playAreaWidth; // 150 + 400 = 550
 
 // Load the controls image
 const controlsImg = new Image();
@@ -26,7 +26,7 @@ const player = {
 };
 
 const obstacles = [];
-const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (500 / 5 = 100px)
+const laneWidth = playAreaWidth / 5; // 5 lanes within the playable area (400 / 5 = 80px)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
 let obstacleSpeed = 8; // Starting speed
