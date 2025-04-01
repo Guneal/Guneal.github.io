@@ -41,6 +41,8 @@ const initialDelay = 3 * 60; // 3 seconds at 60 FPS
 let gameStarted = false;
 let gameOver = false;
 let scoreSubmitted = false;
+let isPaused = false;
+let lastFrameTime = 0;
 
 // Timer variables
 let startTime = 0;
@@ -80,6 +82,20 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         player.dx = 0;
+    }
+});
+
+// Handle tab visibility
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        isPaused = true;
+        lastFrameTime = Date.now();
+    } else {
+        isPaused = false;
+        if (gameStarted && !gameOver) {
+            startTime += Date.now() - lastFrameTime; // Adjust startTime to account for pause duration
+        }
+        update(); // Resume the game loop
     }
 });
 
@@ -144,7 +160,7 @@ rewardButton.addEventListener('click', () => {
     rewardButton.style.display = 'none';
     rewardVideo.style.display = 'block';
     rewardVideo.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `;
 });
 
@@ -252,6 +268,8 @@ function checkCollisions() {
 
 // Game loop
 function update() {
+    if (isPaused) return; // Stop updating if paused
+
     // Clear the canvas without filling a background (transparency)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -426,7 +444,9 @@ function update() {
     }
 
     // Request next frame
-    requestAnimationFrame(update);
+    if (!isPaused) {
+        requestAnimationFrame(update);
+    }
 }
 
 // Start the game loop after a 2-second delay
