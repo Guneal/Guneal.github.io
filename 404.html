@@ -20,7 +20,15 @@
                 <canvas id="game-canvas"></canvas>
                 <div id="leaderboard-container" style="display: none;">
                     <div id="score-display"></div>
-                    <input id="name-input" type="text" maxlength="3" placeholder="Enter 3-letter name" style="margin-bottom: 10px;">
+                    <div id="name-entry">
+                        <div id="name-underscores">
+                            <span class="underscore" data-index="0">_</span>
+                            <span class="underscore" data-index="1">_</span>
+                            <span class="underscore" data-index="2">_</span>
+                        </div>
+                        <input id="name-input" type="text" maxlength="3" placeholder="Enter 3-letter name" style="margin-bottom: 10px;">
+                        <button id="confirm-name-button" disabled>Confirm</button>
+                    </div>
                     <div id="leaderboard-scores" class="leaderboard-scores"></div>
                 </div>
                 <button id="reward-button" style="display: none; margin-top: 10px;">Claim Your Reward!</button>
