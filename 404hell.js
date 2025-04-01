@@ -24,9 +24,9 @@ const obstacles = [];
 const laneWidth = (canvas.width - 100) / 3; // 3 lanes between boundaries (50px on each side)
 const obstacleWidth = laneWidth - 10; // Narrow gaps between lanes (10px gaps)
 const obstacleHeight = 10;
-let obstacleSpeed = 4; // Starting speed
+let obstacleSpeed = 8; // Starting speed (doubled from 4)
 let obstacleSpawnTimer = 0;
-const initialDelay = 5 * 60; // 5 seconds at 60 FPS
+const initialDelay = 3 * 60; // 3 seconds at 60 FPS (reduced from 5)
 let gameStarted = false;
 let gameOver = false;
 
@@ -71,7 +71,7 @@ restartButton.addEventListener('click', () => {
     startTime = 0;
     elapsedTime = 0;
     showControls = false;
-    obstacleSpeed = 4; // Reset speed
+    obstacleSpeed = 8; // Reset speed
     restartButton.style.display = 'none';
 });
 
@@ -141,18 +141,19 @@ function update() {
             gameStarted = true;
             player.y = 100; // Reset player position higher on the screen
             showControls = true; // Show controls on the canvas
-            obstacleSpawnTimer = initialDelay; // Start the 5-second delay
+            obstacleSpawnTimer = initialDelay; // Start the 3-second delay
             startTime = Date.now(); // Start the timer
         }
     } else if (!gameOver) {
         // Update timer
         elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
 
-        // Increase difficulty over time (up to 5 minutes)
-        const maxTime = 5 * 60; // 5 minutes in seconds
-        const timeFactor = Math.min(elapsedTime / maxTime, 1); // 0 to 1 over 5 minutes
-        obstacleSpeed = 4 + timeFactor * 6; // Speed increases from 4 to 10
-        const spawnChance = 0.02 + timeFactor * 0.08; // Spawn chance increases from 0.02 to 0.1
+        // Increase difficulty over time
+        const rampUpTime = 3 * 60; // 3 minutes in seconds
+        const timeFactor = Math.min(elapsedTime / rampUpTime, 1); // 0 to 1 over 3 minutes
+        const additionalTimeFactor = elapsedTime > rampUpTime ? (elapsedTime - rampUpTime) / (2 * 60) : 0; // Slight increase after 3 minutes
+        obstacleSpeed = 8 + timeFactor * 4 + additionalTimeFactor * 2; // Speed: 8 to 12 by 3 minutes, then up to 14
+        const spawnChance = 0.04 + timeFactor * 0.16; // Spawn chance: 0.04 to 0.2 by 3 minutes
 
         // Update player position (horizontal movement only)
         player.x += player.dx;
@@ -167,7 +168,7 @@ function update() {
         } else {
             if (Math.random() < spawnChance) { // Dynamic spawn rate
                 spawnObstacle();
-                obstacleSpawnTimer = 60; // 1-second delay between spawns
+                obstacleSpawnTimer = 30; // Reduced delay for faster spawning (0.5 seconds)
             }
         }
 
@@ -185,7 +186,7 @@ function update() {
 
         // Draw controls image on the canvas
         if (showControls && controlsImg.complete) {
-            ctx.drawImage(controlsImg, 5, 10, 150, 100); // Moved further left
+            ctx.drawImage(controlsImg, 5, 10, 150, 100); // Positioned to the left
         }
 
         // Draw player
@@ -201,7 +202,7 @@ function update() {
         // Draw timer
         ctx.font = '20px Roboto';
         ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'right';
+        ctx.textAlign = 'left';
         ctx.fillText(formatTime(elapsedTime), canvas.width - 40, 30); // Right of the right boundary
     } else {
         // Game over state
