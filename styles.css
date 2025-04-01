@@ -3,7 +3,7 @@
     --primary-font: 'Roboto', 'Arial', sans-serif;
     --primary-color: #00cc00; /* Green for accents */
     --text-color: #ffffff; /* Default text color */
-    --background-gradient: linear-gradient(135deg, #2a0000, #4a0000); /* Dark red gradient */
+    --background-gradient: linear-gradient(135deg, #1a1a1a, #2d2d2d); /* Default grey gradient */
     --secondary-background: #212529; /* Nav background */
     --section-background: #2d2d2d; /* Section background */
     --header-background: linear-gradient(to bottom, #0f1419, #1a1a1a);
@@ -21,6 +21,14 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
 }
+
+/* Override for 404 page */
+body.page-404 {
+    --background-gradient: linear-gradient(135deg, #2a0000, #4a0000); /* Dark red gradient for 404 page */
+    background: var(--background-gradient);
+}
+
+/* Rest of the styles */
 .banner {
     width: 100%;
     height: 300px;
@@ -200,7 +208,7 @@ footer a:hover {
     border: none; /* Ensure no border */
 }
 #game-title {
-    max-width: 700px; /* Match new canvas width */
+    max-width: 700px; /* Match canvas width */
     margin: 0 auto;
     display: block;
 }
@@ -216,4 +224,10 @@ footer a:hover {
 }
 #restart-button:hover {
     background: #009900; /* Slightly darker green */
+}
+.instruction-text {
+    font-family: 'Creepster', cursive;
+    font-size: 1.5rem; /* Larger font size */
+    color: #ff0000; /* Red to match the hell theme */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
