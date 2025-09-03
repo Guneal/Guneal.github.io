@@ -312,19 +312,6 @@ footer a:hover {
     animation: flash 0.5s infinite;
 }
 
-#commission-status {
-    background-color: #007BFF; /* Blue background */
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
 @keyframes flash {
     0% { opacity: 1; }
     50% { opacity: 0; }
@@ -380,4 +367,17 @@ footer a:hover {
 #reward-video iframe {
     width: 400px; /* Larger window as previously set */
     height: 225px; /* 16:9 aspect ratio */
+}
+
+#commission-status {
+    background-color: #007BFF; /* Blue background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
