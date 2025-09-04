@@ -382,7 +382,7 @@ footer a:hover {
     box-sizing: border-box;
 }
 
-/* Update the existing .section class to center content */
+/* Reset the general .section class to its original state */
 .section {
     background: var(--section-background);
     margin-bottom: 2rem;
@@ -391,46 +391,34 @@ footer a:hover {
     box-shadow: 0 5px 20px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     color: var(--text-color);
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center horizontally */
 }
 
-/* Style the donation amount input and buttons container */
-.donation-container {
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 204, 102, 0.2);
+}
+
+/* Specific styling for the donations section */
+#donations.section {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the input and buttons */
-    width: 100%;
-    max-width: 300px; /* Optional: limit width for better appearance */
+    align-items: center; /* Center the content horizontally */
 }
 
-.donation-container input[type="text"] {
+/* Style the service-item within donations to center the PayPal button */
+#donations .service-item {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
+    max-width: 400px; /* Adjust based on PayPal button size */
     text-align: center;
 }
 
-.donation-container button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--text-color);
-    transition: background 0.3s ease;
+/* Style the PayPal container */
+#paypal-container-V4Q5H2QMTMQM2 {
+    margin: 1rem auto; /* Center the PayPal button */
+    width: 100%; /* Allow it to fit within the service-item */
 }
 
-.donation-container button:hover {
-    opacity: 0.9;
-}
-
-/* New class for the support links section */
+/* Keep the existing support-links section if needed */
 .support-links {
     background: var(--section-background);
     padding: 2rem;
