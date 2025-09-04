@@ -436,14 +436,20 @@ footer a:hover {
 }
 
 .support-logo {
-    width: 100px; /* Eye-catching logo size */
+    width: 250px; /* Increased from 100px to 250px for better legibility */
     height: auto;
     margin-bottom: 1rem;
     border-radius: 10px; /* Soft edges for logos */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    /* Removed hover transform to avoid hover effect */
 }
 
+/* Specific adjustment for Buy Me a Coffee logo to extend toward PayPal */
+.support-logo.bmc-logo {
+    width: 350px; /* Larger width to bring text close to PayPal container */
+    margin-right: -50px; /* Negative margin to overlap slightly toward PayPal */
+}
+
+/* Ensure the description adjusts below larger logos */
 .support-description {
     font-size: 1rem;
     color: #cccccc;
@@ -459,11 +465,6 @@ footer a:hover {
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 5px 15px var(--shadow-color);
-}
-
-.paypal-container h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
 }
 
 #paypal-container-V4Q5H2QMTMQM2 {
