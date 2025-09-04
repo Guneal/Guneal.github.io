@@ -381,3 +381,74 @@ footer a:hover {
     width: 100%;
     box-sizing: border-box;
 }
+
+/* Update the existing .section class to center content */
+.section {
+    background: var(--section-background);
+    margin-bottom: 2rem;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-color);
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+}
+
+/* Style the donation amount input and buttons container */
+.donation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the input and buttons */
+    width: 100%;
+    max-width: 300px; /* Optional: limit width for better appearance */
+}
+
+.donation-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.donation-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: background 0.3s ease;
+}
+
+.donation-container button:hover {
+    opacity: 0.9;
+}
+
+/* New class for the support links section */
+.support-links {
+    background: var(--section-background);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    margin-top: 2rem;
+    text-align: center; /* Center the text/links */
+}
+
+.support-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.support-links a:hover {
+    text-decoration: underline;
+    color: #00ff00; /* Slightly brighter green on hover */
+}
