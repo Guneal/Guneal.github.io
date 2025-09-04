@@ -400,32 +400,97 @@ footer a:hover {
 
 /* Specific styling for the donations section */
 #donations.section {
+    padding: 1.5rem; /* Reduced padding for a tighter layout */
+}
+
+/* Donation wrapper to use flexbox for side-by-side layout */
+.donation-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the content horizontally */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem; /* Space between left and right sections */
 }
 
-/* Style the service-item within donations to center the PayPal button */
-#donations .service-item {
-    width: 100%;
-    max-width: 400px; /* Adjust based on PayPal button size */
+/* Support options on the left */
+.support-options {
+    flex: 1; /* Take available space on the left */
+    text-align: left;
+}
+
+.support-options h3 {
+    font-size: 2rem; /* Larger header size for links */
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--glow-color);
+    margin-bottom: 0.5rem;
+}
+
+.support-options h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.support-options h3 a:hover {
+    color: #00ff00; /* Brighter green on hover */
+    text-decoration: underline;
+}
+
+.support-logo {
+    width: 100px; /* Eye-catching logo size */
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 10px; /* Soft edges for logos */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.support-logo:hover {
+    transform: scale(1.1); /* Slight zoom on hover for interactivity */
+}
+
+.support-description {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+/* PayPal container on the right */
+.paypal-container {
+    flex: 0 0 400px; /* Fixed width for PayPal section */
     text-align: center;
+    background: #333333;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
-/* Style the PayPal container */
+.paypal-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 #paypal-container-V4Q5H2QMTMQM2 {
-    margin: 1rem auto; /* Center the PayPal button */
-    width: 100%; /* Allow it to fit within the service-item */
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* Keep the existing support-links section if needed */
+/* Existing styles remain the same, ensuring no override */
+.service-item {
+    margin-bottom: 20px;
+    padding: 1rem;
+    background: #333333;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px var(--shadow-color);
+}
+
 .support-links {
     background: var(--section-background);
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 5px 20px var(--shadow-color);
     margin-top: 2rem;
-    text-align: center; /* Center the text/links */
+    text-align: center;
 }
 
 .support-links a {
@@ -438,5 +503,5 @@ footer a:hover {
 
 .support-links a:hover {
     text-decoration: underline;
-    color: #00ff00; /* Slightly brighter green on hover */
+    color: #00ff00;
 }
