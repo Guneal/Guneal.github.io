@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAx6vFhCOdyDIuQkJ9UbnxBkDNiq97jeVlRrO_6rzC64lCXaOH3JUe5Rt3-EHEcabvJOsdHRS30UGvYuo&components=hosted-buttons&enable-funding=venmo&currency=USD">
+</script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +21,29 @@
             <p>I am a generalist artist accepting clients on a limited basis. I specialize in game design, digital art (3D or 2D), and animation. All work supports my passion project, Cursed Guns Inc.</p>
         </section>
     </div>
+    
+    <div class="container">
+        <section id="services" class="section">
+            <h2>Donations</h2>
+            
+            <div class="service-item">
+                <h3>Direct Paypal Donation</h3>
+    <div id="paypal-container-V4Q5H2QMTMQM2"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "V4Q5H2QMTMQM2",
+  }).render("#paypal-container-V4Q5H2QMTMQM2")
+</script>
+            </div>
 
+            <div class="notes-box">
+                <h3>Note:</h3>
+                <p>All pricing is subject to change based on project requirements.</p>
+                <p>A 25% deposit is required upon signing the freelance agreement, as outlined in the Freelance Policies section.</p>
+                <p>Contact the artist for a detailed quote tailored to your project.</p>
+            </div>
+        </section>
+    </div>
     <footer id="footer"></footer>
 
     <script src="scripts.js"></script>
